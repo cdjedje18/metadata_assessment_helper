@@ -2,7 +2,7 @@ import json
 import os
 import requests
 from common.evaluators.data_set_evaluator import evaluate_dataset
-from common.metadata_exporter import export_analysis_metadata
+from common.metadata_exporter import download_support_metadata
 from common.utils import create_results_folders, get_headers, get_metadata_results_path
 
 
@@ -52,7 +52,7 @@ def execute():
     server = json.load(open("config.json"))
     print(server)
 
-    export_analysis_metadata(server=server)
+    download_support_metadata(server=server)
 
     # print("Fetching datasets...")
     # datasets = get_datasets(server)

@@ -6,7 +6,7 @@ from common.utils import get_headers, get_metadata_results_path
 
 
 
-def download_support_metadata():
+def export_dashboards():
     server = json.load(open("config.json"))
     
 
@@ -34,8 +34,6 @@ def download_support_metadata():
 
 def export_analysis_metadata(server: dict):
 
-    # download_support_metadata()
-
     endpoints = {
         "visualizations": "visualizations",
         "eventVisualizations": "eventVisualizations",
@@ -48,7 +46,7 @@ def export_analysis_metadata(server: dict):
     for key, endpoint in endpoints.items():
         print(f"Downloading {key} metadata...")
         url = f"{server['url']}/api/{endpoint}.json"
-        params = {"paging": "false"}
+        params = {"paging": "false", "fields": "*"}
         response = requests.get(url, headers=get_headers(server), params=params)
         response.raise_for_status()
         print(f"Downloaded {key} metadata with {len(response.json().get(endpoint, []))} items.")
@@ -61,6 +59,43 @@ def export_analysis_metadata(server: dict):
 
 
 
+
+def export_indicators(server: dict):
+    url = f"{server['url']}/api/indicators.json"
+    params = {"paging": "false", "fields": ":owner"}
+    response = requests.get(url, headers=get_headers(server), params=params)
+    response.raise_for_status()
+    indicators = response.json().get("indicators", [])
+    print(f"Downloaded {len(indicators)} indicators.")
+
+    output_path = os.path.join(get_metadata_results_path(), "indicators.txt")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(indicators, f)
+
+    return indicators
+
+
+
+def export_program_indicators(server: dict):
+    url = f"{server['url']}/api/programIndicators.json"
+    params = {"paging": "false", "fields": ":owner"}
+    response = requests.get(url, headers=get_headers(server), params=params)
+    response.raise_for_status()
+    indicators = response.json().get("programIndicators", [])
+    print(f"Downloaded {len(indicators)} program indicators.")
+
+    output_path = os.path.join(get_metadata_results_path(), "programIndicators.txt")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(indicators, f)
+
+    return indicators
+
+
+def download_support_metadata(server: dict):
+    export_indicators(server)
+    export_program_indicators(server)
+    export_analysis_metadata(server)
+    # export_dashboards()
 
 
 
