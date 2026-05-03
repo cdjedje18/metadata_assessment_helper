@@ -1,0 +1,10 @@
+{
+    "name": "list_dashboards",
+    "created": "2026-05-03T12:10:37.965",
+    "lastUpdated": "2026-05-03T12:18:59.114",
+    "sqlQuery": "select uid from dashboard;",
+    "type": "QUERY",
+    "cacheStrategy": "NO_CACHE",
+    "id": "nvFGz1u31S0",
+    "attributeValues": []
+}
