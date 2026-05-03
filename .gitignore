@@ -159,5 +159,6 @@ google-services.json
 /results
 /source
 /sql_views
+/metadata
 
 config.json

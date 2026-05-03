@@ -1,7 +1,9 @@
 import json
+import os
 import requests
 from common.evaluators.data_set_evaluator import evaluate_dataset
-from common.utils import create_results_folders, get_headers
+from common.metadata_exporter import export_analysis_metadata
+from common.utils import create_results_folders, get_headers, get_metadata_results_path
 
 
 def get_datasets(server: dict):
@@ -42,27 +44,26 @@ def evaluate_datasets(datasets: list, server: dict):
         evaluated = evaluate_dataset(dataset, server)
         
 
-        
-
-
 
 def execute():
 
     create_results_folders()
-    
+
     server = json.load(open("config.json"))
     print(server)
 
-    print("Fetching datasets...")
-    datasets = get_datasets(server)
-    print(f"Found {len(datasets)} datasets.")
+    export_analysis_metadata(server=server)
 
-    # print("Fetching programs...")
-    # programs = get_programs(server)
-    # print(f"Found {len(programs)} programs.")
+    # print("Fetching datasets...")
+    # datasets = get_datasets(server)
+    # print(f"Found {len(datasets)} datasets.")
 
-    evaluate_datasets(datasets, server)
-    # evaluate_programs(programs, server)
+    # # print("Fetching programs...")
+    # # programs = get_programs(server)
+    # # print(f"Found {len(programs)} programs.")
+
+    # evaluate_datasets(datasets, server)
+    # # evaluate_programs(programs, server)
 
 
 

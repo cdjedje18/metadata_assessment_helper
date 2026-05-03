@@ -16,10 +16,14 @@ def get_program_results_path():
     return f"results/programs"
 
 
+def get_metadata_results_path():
+    return f"metadata"
+
+
 def create_results_folders():
     os.makedirs(get_dataset_results_path(), exist_ok=True)
     os.makedirs(get_program_results_path(), exist_ok=True)
-
+    os.makedirs(get_metadata_results_path(), exist_ok=True)
 
 
 
