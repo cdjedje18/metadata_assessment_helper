@@ -160,5 +160,6 @@ google-services.json
 /source
 /sql_views
 /metadata
+/integrity_checks
 
 config.json

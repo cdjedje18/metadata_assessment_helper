@@ -19,11 +19,14 @@ def get_program_results_path():
 def get_metadata_results_path():
     return f"metadata"
 
+def get_integrity_checks_path():
+    return f"integrity_checks"
 
 def create_results_folders():
     os.makedirs(get_dataset_results_path(), exist_ok=True)
     os.makedirs(get_program_results_path(), exist_ok=True)
     os.makedirs(get_metadata_results_path(), exist_ok=True)
+    os.makedirs(get_integrity_checks_path(), exist_ok=True)
 
 
 

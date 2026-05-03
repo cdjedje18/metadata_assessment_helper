@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+from common.dhis2_metadata_assessment.extract_assessment import download_integrity_checks
 from common.evaluators.data_set_evaluator import evaluate_dataset
 from common.metadata_exporter import download_support_metadata
 from common.utils import create_results_folders, get_headers, get_metadata_results_path
@@ -52,7 +53,8 @@ def execute():
     server = json.load(open("config.json"))
     print(server)
 
-    download_support_metadata(server=server)
+    # download_support_metadata(server=server)
+    download_integrity_checks(server=server)
 
     # print("Fetching datasets...")
     # datasets = get_datasets(server)
