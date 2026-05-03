@@ -156,10 +156,10 @@ def evaluate_program(program: dict, server: dict):
 
     program_export = export_program(program['id'], server)
     cleaned_program = clean_program_export(program_export)
-    # dependency_metadata = get_dependency_metadata(cleaned_program)
+    dependency_metadata = get_dependency_metadata(cleaned_program)
 
     with open(f"{program_results_path}/{program['id']}.txt", "w") as f:
-        json.dump(cleaned_program, f)
+        json.dump(dependency_metadata, f)
 
 
 

@@ -3,6 +3,7 @@ import os
 import requests
 from common.dhis2_metadata_assessment.extract_assessment import download_integrity_checks
 from common.evaluators.data_set_evaluator import evaluate_dataset
+from common.evaluators.program_evaluator import evaluate_program
 from common.metadata_exporter import download_support_metadata
 from common.utils import create_results_folders, get_headers, get_metadata_results_path
 
@@ -25,15 +26,9 @@ def get_programs(server: dict):
 
 
 def evaluate_programs(programs: list, server: dict):
-    for program in programs:
-        url = f"{server['url']}/api/programs/{program['id']}/metadata.json"
-        params = {"skipSharing": "true"}
-        response = requests.get(url, headers=get_headers(server), params=params)
-        response.raise_for_status()
-        program_export = response.json()
-
-    with open(f"results/program_{program['id']}.json", "w") as f:
-        json.dump(program_export, f, indent=2)
+    for i, program in enumerate(programs):
+        print(f"Evaluating program {program['name']} (id: {program['id']}) [{i}/{len(programs)}])...")
+        evaluate_program(program, server)
 
 
 
@@ -56,16 +51,16 @@ def execute():
     # download_support_metadata(server=server)
     # download_integrity_checks(server=server)
 
-    print("Fetching datasets...")
-    datasets = get_datasets(server)
-    print(f"Found {len(datasets)} datasets.")
+    # print("Fetching datasets...")
+    # datasets = get_datasets(server)
+    # print(f"Found {len(datasets)} datasets.")
 
-    # # print("Fetching programs...")
-    # # programs = get_programs(server)
-    # # print(f"Found {len(programs)} programs.")
+    print("Fetching programs...")
+    programs = get_programs(server)
+    print(f"Found {len(programs)} programs.")
 
-    evaluate_datasets(datasets, server)
-    # # evaluate_programs(programs, server)
+    # evaluate_datasets(datasets, server)
+    evaluate_programs(programs, server)
 
 
 
