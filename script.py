@@ -54,17 +54,17 @@ def execute():
     print(server)
 
     # download_support_metadata(server=server)
-    download_integrity_checks(server=server)
+    # download_integrity_checks(server=server)
 
-    # print("Fetching datasets...")
-    # datasets = get_datasets(server)
-    # print(f"Found {len(datasets)} datasets.")
+    print("Fetching datasets...")
+    datasets = get_datasets(server)
+    print(f"Found {len(datasets)} datasets.")
 
     # # print("Fetching programs...")
     # # programs = get_programs(server)
     # # print(f"Found {len(programs)} programs.")
 
-    # evaluate_datasets(datasets, server)
+    evaluate_datasets(datasets, server)
     # # evaluate_programs(programs, server)
 
 
