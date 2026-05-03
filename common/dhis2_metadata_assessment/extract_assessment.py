@@ -1,3 +1,4 @@
+import time
 import requests
 from common.utils import get_headers
 import os
@@ -43,6 +44,7 @@ def download_integrity_checks(server: dict):
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(json.dumps(check_details))
 
+        # time.sleep(5)  # Sleep for a short time to avoid overwhelming the server with requests
 
 
 
